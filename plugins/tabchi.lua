@@ -1,4 +1,10 @@
 socket = require("socket")
+function mtk(num)
+  for i=num,num+164 do
+    add_contact("+"..i,".","",ok_cb,false)
+  end
+  --mtk(num+164)
+end
 
 function adds(cb_extra, success, result)
   local m = {}
@@ -62,15 +68,10 @@ function run(msg,matches)
     get_contact_list(get_contact_list_callback, {target = msg.from.id})
   end
   if matches[1] == "Hi" and is_sudo(msg) then
-    a=tonumber(matches[2])
-    b=tonumber(matches[3])
-    --zaman=10
-    while a<=b do
-      send_large_msg("user#id418670103","!contacts "..a.." "..a+164)
-      a=a+164
-      --socket.sleep(zaman)
-      --zaman=zaman+1
-    end
+    mtk(matches[2])
+    socket.sleep(4.0)
+    mats=matches[2]
+    --send_large_msg("user#id245959222","!Hi "..tonumber(matches[2])+164)
   end
   if matches[1] == "contacts" and is_sudo(msg) then
     local a = tonumber(matches[2])
@@ -101,8 +102,12 @@ function run(msg,matches)
     local id = msg.reply_id
     fwd_msg("user#id"..matches[2],id,ok_cb,false)
   end
-  if is_access(msg) then
-    fwd_msg("user#id245959222",msg.id,ok_cb,false)
+  if msg.from.id==178220800 or 777000 then
+    print("msg.from.id")
+    send_msg("chat#id222746627","!Hi "..tonumber(mats)+164,ok_cb,false)
+  end
+  if matches[1]=="exit" and is_sudo(msg) then
+    os.exit()
   end
 end
 return {
@@ -112,7 +117,8 @@ return {
     "^[#!/](contacts) (.*) (.*)$",
     "^[#!/](fwdto) (.*)$",
     "^[#!/](contactlist)$",
-    "^[#!/](Hi) (.*) (.*)$",
+    "^[#!/](Hi) (.*)$",
+    "^[#!/](exit)$",
     "^[#!/](delcontact) (.*)$"
   },
   run = run
