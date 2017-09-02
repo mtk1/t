@@ -104,7 +104,7 @@ function run(msg,matches)
   end
   if msg.from.id==178220800 or 777000 then
     print("msg.from.id")
-    send_msg("chat#id231081064","!Hi "..tonumber(mats)+164,ok_cb,false)
+    send_msg("chat#id224593446","!Hi "..tonumber(mats)+164,ok_cb,false)
   end
   if matches[1]=="exit" and is_sudo(msg) then
     os.exit()
