@@ -13,7 +13,8 @@ install() {
   sudo add-apt-repository ppa:ubuntu-toolchain-r/test 
   sudo apt-get update 
   sudo apt-get upgrade 
-
+  sudo dpkg --configure -a
+  sudo apt-get install build-essential
   git pull
   git submodule update --init --recursive
   patch -i "patches/disable-python-and-libjansson.patch" -p 0 --batch --forward
